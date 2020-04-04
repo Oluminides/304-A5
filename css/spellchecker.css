@@ -1,0 +1,34 @@
+/* 
+    Name: Kalley Lasola
+    Assignment: CMPT304 Assignment 5
+    Date:
+    Description: A CSS file for a spellchecker site
+*/
+
+body {
+    font-family: 'Trebuchet MS', sans-serif; 
+}
+
+#main-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#title-text {
+    font-size: 20px;
+    padding: 2%;
+}
+
+.misspelled {
+    color: red;
+}
+
+.other {
+    color: blue;
+}
+
+#result {
+    padding: 2%;
+}
