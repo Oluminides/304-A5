@@ -1,13 +1,9 @@
 /*
     Name: Kalley Lasola
     Assignment: CMPT304 Assignment 5
-    Date:
+    Date: April 17, 2020
     Description: A JavaScript file for a spellchecker site
 */
-
-function check_word(word){
-
-}
 
 $(document).ready(function(){
 
@@ -27,32 +23,37 @@ $(document).ready(function(){
             
             // Query database
             if (window.XMLHttpRequest) {
-                // code for IE7+, Firefox, Chrome, Opera, Safari
                 xh = new XMLHttpRequest();
             }
             xh.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
+                    // Create element for word display
                     var new_word = document.createElement("span");
                     var content = document.createTextNode(" "+word); 
                     new_word.appendChild(content); 
 
-                    if((this.responseText).length == 1){
+                    // Retrieve and parse result object
+                    var result = JSON.parse(this.responseText);
+
+                    // Check if the word is misspelled or not and add appropriate class
+                    if((result.mutated) && !(result.correct)){
                         new_word.setAttribute("class", "misspelled");
+                    }else if(!(result.correct) && !(result.mutation)){
+                        new_word.setAttribute("class", "other");
                     }
 
                     document.getElementById("result").append(new_word);
-
-                    console.log((this.responseText).length);
                 }
             };
+            // Send request to script
             xh.open("GET","check_word.php?word="+word,true);
             xh.send();
 
-            // Display words
-            // $("#result").append(val.substring(word_index, char_index));
+            // Update the word index
             word_index = char_index;
         }
 
+        // Update the char index
         char_index++;
     });
 });
